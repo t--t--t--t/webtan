@@ -546,3 +546,33 @@ function twentythirteen_customize_preview_js() {
 	wp_enqueue_script( 'twentythirteen-customizer', get_template_directory_uri() . '/js/theme-customizer.js', array( 'customize-preview' ), '20130226', true );
 }
 add_action( 'customize_preview_init', 'twentythirteen_customize_preview_js' );
+
+
+/* tinyMce */
+class newMceButton {
+	function newMceButton() {
+		add_action('init', array(&$this, 'addbuttons'));
+	}
+	function sink_hooks(){
+		add_filter('mce_plugins', array(&$this, 'mce_plugins'));
+	}
+	function addbuttons() {
+		if ( ! current_user_can('edit_posts') && ! current_user_can('edit_pages') )
+			return;
+		if ( get_user_option('rich_editing') == 'true') {
+			add_filter("mce_external_plugins", array(&$this, 'mce_external_plugins'));
+			add_filter('mce_buttons', array(&$this, 'mce_buttons'));
+		}
+	}
+	function mce_buttons($buttons) {
+		array_push($buttons, "separator", "balloon");
+		return $buttons;
+	}
+	function mce_external_plugins($plugin_array) {
+		$plugin_array['newButtons'] = get_bloginfo('template_url') .'/js/editer_plugin.js';
+		/* アップしたediter_plugin.jsのパス */
+		return $plugin_array;
+	}
+}
+$mybutton = new newMceButton();
+add_action('init',array(&$mybutton, 'newMceButton'));
