@@ -23,7 +23,7 @@
 			image : url + '/../images/cl.gif'});
 		},
 		_newButton : function(d, fmt) {
-			str = '<div class="ballw">' + this.editor.selection.getContent() + '</div>';
+			str = '<div class="ballw">' + this.editor.selection.getContent() + '</div><br><br>';
 			return str;
 		  }
 		});
