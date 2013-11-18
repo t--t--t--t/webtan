@@ -565,7 +565,8 @@ class newMceButton {
 		}
 	}
 	function mce_buttons($buttons) {
-		array_push($buttons, "separator", "balloon");
+		array_push($buttons, "separator", "balloon_l");
+		array_push($buttons, "separator", "balloon_r");
 		return $buttons;
 	}
 	function mce_external_plugins($plugin_array) {
