@@ -577,3 +577,13 @@ class newMceButton {
 }
 $mybutton = new newMceButton();
 add_action('init',array(&$mybutton, 'newMceButton'));
+
+/* 管理バー非表示 */
+if ( !function_exists( 'mytheme_init' ) ) {
+	add_action( 'init', 'mytheme_init' );
+	function mytheme_init() {
+		if (!current_user_can( 'administrator')) {
+			define( 'IFRAME_REQUEST', 1 );
+		}
+	}
+}
